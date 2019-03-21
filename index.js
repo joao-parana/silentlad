@@ -37,7 +37,7 @@ function resumeHandler() {
         type: "list",
         name: "exitBack",
         message: "Go back or Exit?",
-        choices: ["Go Back", "Exit"]
+        choices: ["DIR", "Go Back", "Exit"]
       })
       .then(choice => {
         // console.log("choice is:")
@@ -45,6 +45,17 @@ function resumeHandler() {
         if (choice.exitBack == "Go Back") {
           // console.log("resumeHandler invoke")
           resumeHandler();
+        } else if (choice.exitBack == "DIR") {
+          inquirer.registerPrompt('directory', require('inquirer-select-directory'));
+          inquirer.prompt([{
+            type: 'directory',
+            name: 'from',
+            message: 'Where you like to put this component?',
+            basePath: './src'
+          }]).then(function(answers) {
+            // etc
+            console.log(answers);
+          });
         } else {
           return;
         }
